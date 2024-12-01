@@ -1,4 +1,4 @@
-const base_url = "https://api.themoviedb.org/3";
+export const base_url = "https://api.themoviedb.org/3";
 export const poster_base_url = "https://image.tmdb.org/t/p/original";
 
 const moviesApis = {

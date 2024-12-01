@@ -4,6 +4,7 @@ import "@radix-ui/themes/styles.css";
 import "./globals.css";
 import { Theme } from "@radix-ui/themes";
 import Navbar from "@/components/layout/Navbar";
+import QueryWrapper from "@/components/layout/QueryWrapper";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,8 +33,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Theme appearance="dark">
-          <Navbar />
-          {children}
+          <QueryWrapper>
+            <Navbar />
+            {children}
+          </QueryWrapper>
         </Theme>
       </body>
     </html>
