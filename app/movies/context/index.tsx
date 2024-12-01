@@ -10,6 +10,7 @@ import useCompaniesData, {
 
 // import packages
 export const MoviesFiltersCxt = createContext<MoviesFiltersCxtType>({
+  isLoadingFilteredMovies: false,
   handleChangePage: (page: number) => {},
   filteredMoviesResult: undefined,
   handleSearch: (name, gerne) => {},
@@ -21,11 +22,8 @@ export const MoviesFiltersCxtProvider = (props: PropsType) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [movieName, setMovieName] = useState("");
   const [movieGenre, setMovieGenre] = useState("");
-  const { data: filteredMoviesResult } = useCompaniesData(
-    movieName,
-    movieGenre,
-    currentPage
-  );
+  const { data: filteredMoviesResult, isLoading: isLoadingFilteredMovies } =
+    useCompaniesData(movieName, movieGenre, currentPage);
   // ** handle side effects
 
   // ** declare and define component helper methods
@@ -41,7 +39,12 @@ export const MoviesFiltersCxtProvider = (props: PropsType) => {
   // ** return component ui
   return (
     <MoviesFiltersCxt.Provider
-      value={{ handleSearch, handleChangePage, filteredMoviesResult }}
+      value={{
+        handleSearch,
+        handleChangePage,
+        filteredMoviesResult,
+        isLoadingFilteredMovies,
+      }}
     >
       {children}
     </MoviesFiltersCxt.Provider>
@@ -53,6 +56,7 @@ type PropsType = {
 };
 
 type MoviesFiltersCxtType = {
+  isLoadingFilteredMovies: boolean;
   handleChangePage(page: number): void;
   handleSearch(name: string, gerne: string): void;
   filteredMoviesResult: FilteredMoviesResultType | undefined;
